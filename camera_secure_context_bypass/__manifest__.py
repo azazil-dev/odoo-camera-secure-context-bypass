@@ -45,6 +45,7 @@ is restricted by modern browsers. Provides:
             'camera_secure_context_bypass/static/tests/barcode_scanner_patch.test.js',
         ],
     },
+    'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
     'auto_install': False,
