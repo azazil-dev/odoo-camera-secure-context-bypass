@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="camera_secure_context_bypass.GuidancePanel">
+        <div class="o_camera_compat_guidance border rounded-3 p-3 mb-3 bg-light text-dark shadow-sm">
+            <div class="d-flex justify-content-between align-items-center cursor-pointer" t-on-click="toggle" role="button" tabindex="0" aria-label="Toggle Camera Connection Guide">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa fa-info-circle text-warning fs-5"/>
+                    <strong class="text-secondary">Camera needs a secure connection (HTTP detected)</strong>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" aria-label="Expand or collapse guide">
+                    <i t-attf-class="fa fa-chevron-{{ state.isOpen ? 'up' : 'down' }}"/>
+                </button>
+            </div>
+
+            <t t-if="state.isOpen">
+                <hr class="my-2 border-secondary opacity-25"/>
+                <div class="small mt-2">
+                    <p class="mb-2 text-muted">
+                        Modern web browsers require a secure origin (HTTPS or localhost) to access live camera video streams. On plain HTTP over LAN IP, live video is blocked by browser security sandbox policies.
+                    </p>
+
+                    <t t-if="guidance.origin">
+                        <div class="d-flex align-items-center gap-2 my-2 p-2 bg-white rounded border">
+                            <span class="text-muted fw-bold">Current Origin:</span>
+                            <code class="text-primary text-break" t-esc="guidance.origin"/>
+                            <button type="button" class="btn btn-sm btn-light border ms-auto text-nowrap" t-on-click.stop="copyOrigin" aria-label="Copy origin">
+                                <i t-attf-class="fa fa-{{ state.copied ? 'check text-success' : 'copy' }} me-1"/>
+                                <span t-esc="state.copied ? 'Copied!' : 'Copy origin'"/>
+                            </button>
+                        </div>
+                    </t>
+
+                    <t t-if="guidance.workaround">
+                        <div class="card p-2 mb-2 border-warning bg-warning bg-opacity-10">
+                            <h6 class="fw-bold mb-1 text-dark" t-esc="guidance.workaround.title"/>
+                            <t t-if="guidance.workaround.warning">
+                                <div class="text-danger small mb-2 fst-italic" t-esc="guidance.workaround.warning"/>
+                            </t>
+                            <ol class="mb-0 ps-3">
+                                <t t-foreach="guidance.workaround.steps" t-as="step" t-key="step_index">
+                                    <li class="mb-1 text-secondary" t-esc="step"/>
+                                </t>
+                            </ol>
+                        </div>
+                    </t>
+
+                    <t t-if="guidance.permanentFix">
+                        <div class="card p-2 border-info bg-info bg-opacity-10">
+                            <h6 class="fw-bold mb-1 text-dark" t-esc="guidance.permanentFix.title"/>
+                            <p class="mb-0 text-secondary" t-esc="guidance.permanentFix.description"/>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>
+

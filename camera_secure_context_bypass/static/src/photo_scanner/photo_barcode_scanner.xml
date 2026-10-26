@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="camera_secure_context_bypass.PhotoBarcodeScanner">
+        <div class="o_photo_barcode_scanner">
+            <!-- Hidden input with capture="environment" -->
+            <input
+                type="file"
+                accept="image/*"
+                t-att-capture="props.facingMode || 'environment'"
+                class="d-none"
+                t-ref="fileInput"
+                t-on-change="onPhotoCaptured"
+            />
+
+            <!-- Scan Action Box -->
+            <div class="o_scan_action_box">
+                <div class="mb-3">
+                    <span class="d-inline-flex p-3 rounded-circle bg-primary bg-opacity-10 text-primary">
+                        <i class="fa fa-barcode fa-3x"/>
+                    </span>
+                </div>
+
+                <h4 class="fw-bold mb-2">Barcode Photo-Scanner</h4>
+
+                <!-- Hint for insecure context (FR-25) -->
+                <t t-if="!envInfo.isSecureContext">
+                    <p class="text-muted small mb-4">
+                        Live scanning needs a secure (HTTPS) connection, so this mode takes a photo instead.
+                    </p>
+                </t>
+                <t t-else="">
+                    <p class="text-muted small mb-4">
+                        Take a still photograph of the barcode to decode offline.
+                    </p>
+                </t>
+
+                <!-- Decoding Spinner -->
+                <t t-if="state.status === 'decoding'">
+                    <div class="p-4 my-2 text-primary">
+                        <i class="fa fa-circle-o-notch fa-spin fa-2x mb-2"/>
+                        <div class="fw-bold">Analyzing barcode photo...</div>
+                    </div>
+                </t>
+
+                <!-- Trigger Button -->
+                <t t-if="state.status !== 'decoding'">
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-lg w-100 o_btn_trigger_scan shadow-sm mb-3"
+                        t-on-click="triggerCamera"
+                        aria-label="Take Photo to Scan Barcode"
+                    >
+                        <i class="fa fa-camera me-2"/>
+                        <span>Take Barcode Photo</span>
+                    </button>
+                </t>
+
+                <!-- Success State -->
+                <t t-if="state.status === 'success'">
+                    <div class="alert alert-success d-flex align-items-center gap-2 mb-3" role="alert">
+                        <i class="fa fa-check-circle fs-5"/>
+                        <div>
+                            Scanned: <strong t-esc="state.decodedValue"/>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- Error State (FR-24) -->
+                <t t-if="state.status === 'error'">
+                    <div class="alert alert-warning text-start small mb-3" role="alert">
+                        <div class="d-flex align-items-start gap-2 mb-2">
+                            <i class="fa fa-exclamation-triangle text-warning fs-5 flex-shrink-0 mt-1"/>
+                            <span t-esc="state.errorMessage"/>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-end mt-2">
+                            <button type="button" class="btn btn-sm btn-outline-dark" t-on-click="triggerCamera">
+                                <i class="fa fa-repeat me-1"/> Retake
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary" t-on-click="toggleManualInput">
+                                <i class="fa fa-keyboard-o me-1"/> Enter manually
+                            </button>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- Manual Input Option Toggle -->
+                <t t-if="!state.showManualInput and state.status !== 'error' and state.status !== 'decoding'">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-link btn-sm text-decoration-none text-muted" t-on-click="toggleManualInput">
+                            <i class="fa fa-keyboard-o me-1"/> Type barcode manually
+                        </button>
+                    </div>
+                </t>
+
+                <!-- Manual Input Form -->
+                <t t-if="state.showManualInput">
+                    <div class="o_manual_entry_box border-top pt-3 text-start">
+                        <label class="form-label small fw-bold text-muted mb-1">Enter barcode number:</label>
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="e.g. 5012345678900"
+                                t-model="state.manualCode"
+                                t-on-keydown="onManualKeyDown"
+                                autofocus="autofocus"
+                            />
+                            <button class="btn btn-outline-primary" type="button" t-on-click="submitManualEntry">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>
+
