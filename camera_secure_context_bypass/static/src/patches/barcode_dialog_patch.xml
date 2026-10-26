@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.BarcodeDialog" t-inherit-mode="extension">
+        <xpath expr="//BarcodeVideoScanner" position="replace">
+            <t t-if="state.usePhotoScan">
+                <div class="h-100 d-flex justify-content-center align-items-center bg-light">
+                    <PhotoBarcodeScanner
+                        facingMode="props.facingMode"
+                        onScan.bind="this.onPhotoScanResult"
+                        onError.bind="this.onError"
+                    />
+                </div>
+            </t>
+            <BarcodeVideoScanner t-elif="state.barcodeScannerSupported"
+                                 t-props="props" onError.bind="onError" onResult.bind="onResult"/>
+        </xpath>
+    </t>
+</templates>

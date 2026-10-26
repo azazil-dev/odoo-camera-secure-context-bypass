@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="camera_secure_context_bypass.CameraCapture">
+        <div class="o_camera_capture_container">
+            <!-- Insecure context guidance panel -->
+            <t t-if="!envInfo.isSecureContext and props.showGuide">
+                <GuidancePanel envInfo="envInfo"/>
+            </t>
+
+            <!-- Error alert -->
+            <t t-if="state.errorMessage">
+                <div class="alert alert-danger w-100 d-flex align-items-center gap-2 mb-3" role="alert">
+                    <i class="fa fa-exclamation-triangle fs-5"/>
+                    <span t-esc="state.errorMessage"/>
+                </div>
+            </t>
+
+            <!-- Hidden File Input for Native Camera and File Picker -->
+            <input
+                type="file"
+                accept="image/*"
+                t-att-capture="state.mode === 'native' ? state.facingMode : false"
+                class="d-none"
+                t-ref="fileInput"
+                t-on-change="onFileSelected"
+            />
+
+            <!-- 1. LIVE MODE -->
+            <t t-if="state.mode === 'live' and state.status !== 'captured'">
+                <div class="o_camera_preview_wrapper shadow-sm">
+                    <video t-ref="videoPreview" autoplay="true" playsinline="true" muted="true"/>
+                    
+                    <t t-if="state.status === 'starting'">
+                        <div class="position-absolute top-50 start-50 translate-middle text-white text-center">
+                            <i class="fa fa-circle-o-notch fa-spin fa-2x mb-2"/>
+                            <div>Initializing camera...</div>
+                        </div>
+                    </t>
+
+                    <t t-if="state.status === 'live'">
+                        <div class="o_camera_overlay_controls">
+                            <t t-if="state.hasMultipleCameras">
+                                <button type="button" class="btn btn-outline-light rounded-circle p-2" t-on-click="switchCamera" title="Switch camera" aria-label="Switch camera">
+                                    <i class="fa fa-refresh fa-lg"/>
+                                </button>
+                            </t>
+                            <button type="button" class="btn btn-primary rounded-circle o_camera_btn_capture p-3 shadow-lg" t-on-click="takePhoto" aria-label="Take photo" title="Take photo">
+                                <i class="fa fa-camera fa-2x"/>
+                            </button>
+                        </div>
+                    </t>
+                </div>
+            </t>
+
+            <!-- 2. NATIVE / FILE FALLBACK MODE -->
+            <t t-elif="(state.mode === 'native' or state.mode === 'file') and state.status !== 'captured'">
+                <div class="o_camera_fallback_box shadow-sm">
+                    <div class="mb-3">
+                        <i t-attf-class="fa fa-{{ state.mode === 'native' ? 'camera' : 'folder-open-o' }} fa-3x text-primary"/>
+                    </div>
+                    <h5 class="fw-bold mb-2">
+                        <t t-if="state.mode === 'native'">Take Photo with Device Camera</t>
+                        <t t-else="">Select Image File</t>
+                    </h5>
+                    <p class="text-muted small mb-4">
+                        <t t-if="state.mode === 'native'">
+                            Using native camera app integration (compatible with HTTP / non-secure connections).
+                        </t>
+                        <t t-else="">
+                            Live camera is restricted on insecure origins. Choose an existing photo or capture from file dialog.
+                        </t>
+                    </p>
+                    <button type="button" class="btn btn-primary btn-lg o_camera_btn_capture px-4 py-2" t-on-click="triggerFileInput" aria-label="Open Camera or File Picker">
+                        <i t-attf-class="fa fa-{{ state.mode === 'native' ? 'camera' : 'upload' }} me-2"/>
+                        <t t-if="state.mode === 'native'">Open Camera</t>
+                        <t t-else="">Choose Image</t>
+                    </button>
+                </div>
+            </t>
+
+            <!-- 3. CAPTURED PREVIEW STATE -->
+            <t t-if="state.status === 'captured'">
+                <div class="o_camera_preview_wrapper shadow-sm mb-3">
+                    <img t-att-src="state.capturedImage" class="o_captured_preview" alt="Captured preview"/>
+                </div>
+                <div class="d-flex gap-3 justify-content-center">
+                    <button type="button" class="btn btn-outline-secondary px-4 py-2" t-on-click="retake" aria-label="Retake photo">
+                        <i class="fa fa-repeat me-1"/> Retake
+                    </button>
+                    <button type="button" class="btn btn-success px-4 py-2" t-on-click="confirmCapture" aria-label="Confirm and use photo">
+                        <i class="fa fa-check me-1"/> Use Photo
+                    </button>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>
+

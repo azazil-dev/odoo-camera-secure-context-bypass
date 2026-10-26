@@ -1,0 +1,155 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* camera_secure_context_bypass
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-25 07:00+0000\n"
+"PO-Revision-Date: 2026-10-25 07:00+0000\n"
+"Last-Translator: Arif N Ramadhan\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Permanent Fix (Recommended for Production)"
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Put Odoo behind an HTTPS reverse proxy (such as Nginx, Caddy, or Traefik) using a trusted SSL/TLS certificate. Configure 'proxy_mode = True' in odoo.conf and forward headers ('X-Forwarded-Proto https'). Access Odoo via the HTTPS hostname or domain."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Client Workaround for %s / Chromium"
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Warning: Treating an insecure origin as secure lowers browser isolation. Use only on trusted private networks."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Open the browser flags URL in a new tab: %s://flags/#unsafely-treat-insecure-origin-as-secure"
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Enable the flag and add your exact Odoo origin (%s) to the text box."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Relaunch your browser. Live camera access will now be permitted for this origin."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Client Workaround for Firefox"
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Warning: Modifying advanced settings may reduce security. Apply only on trusted local networks."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Open 'about:config' in a new tab and accept the risk warning."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Search for and set 'media.devices.insecure.enabled' to true."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Search for and set 'media.getusermedia.insecure.enabled' to true."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Reload the Odoo page. Live camera will now be accessible."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Safari / iOS / iPadOS Workaround"
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "WebKit and iOS do not provide browser flags to bypass secure context restrictions. Live in-page video scanning is not possible over plain HTTP."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "On mobile/iPadOS, tap 'Take Photo' or 'Scan Barcode' to trigger the native camera app."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "Photograph the barcode or subject; the browser will process it offline upon return."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/guide/browser_guide.js:0
+#, python-format
+msgid "For live streaming video, the Odoo server MUST be accessed over HTTPS."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/camera_capture/camera_capture.js:0
+#, python-format
+msgid "Camera permission was denied. Allow camera access for this site in the browser settings and try again."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/camera_capture/camera_capture.js:0
+#, python-format
+msgid "No camera was found on this device."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/camera_capture/camera_capture.js:0
+#, python-format
+msgid "The camera is in use by another app. Close it and try again."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/camera_capture/camera_capture.js:0
+#, python-format
+msgid "The requested camera is not available. Using the default camera instead."
+msgstr ""
+
+#. module: camera_secure_context_bypass
+#: code:addons/camera_secure_context_bypass/static/src/photo_scanner/photo_barcode_scanner.js:0
+#, python-format
+msgid "No barcode found. Retake the photo closer to the barcode, in focus and with good light, so the barcode fills most of the frame."
+msgstr ""
+
