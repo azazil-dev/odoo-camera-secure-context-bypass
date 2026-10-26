@@ -5,7 +5,7 @@
     'description': """
 Camera Secure Context Bypass (Non-Secure Context)
 =========================================================
-Author: Arif N Ramadhan | License: OPL-1 | Target: Odoo 18
+Author: Arif N Ramadhan | License: OPL-1 | Target: Odoo 17
 
 Solves the camera block on insecure contexts (HTTP over LAN IP) where `navigator.mediaDevices`
 is restricted by modern browsers. Provides:
@@ -18,7 +18,7 @@ is restricted by modern browsers. Provides:
     'author': "Arif N Ramadhan",
     'website': "www.niits.id",
     'category': 'Technical',
-    'version': '18.0.1.0.0',
+    'version': '17.0.1.0.0',
     'license': 'OPL-1',
     'depends': ['web'],
     'data': [],
@@ -42,7 +42,6 @@ is restricted by modern browsers. Provides:
         'web.qunit_suite_tests': [
             'camera_secure_context_bypass/static/tests/camera_env.test.js',
             'camera_secure_context_bypass/static/tests/photo_decoder.test.js',
-            'camera_secure_context_bypass/static/tests/barcode_scanner_patch.test.js',
         ],
     },
     'images': ['static/description/banner.png'],

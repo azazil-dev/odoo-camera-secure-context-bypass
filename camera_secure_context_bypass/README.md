@@ -1,7 +1,7 @@
-# Camera Secure Context Bypass (Odoo 18)
+# Camera Secure Context Bypass (Odoo 17)
 
-**Odoo 18 Community & Enterprise Camera & Barcode Scanning Bypass for Insecure / LAN HTTP Contexts**  
-**Author:** Arif N Ramadhan | **License:** OPL-1 | **Target:** Odoo 18.0
+**Odoo 17 Community & Enterprise Camera & Barcode Scanning Bypass for Insecure / LAN HTTP Contexts**  
+**Author:** Arif N Ramadhan | **License:** OPL-1 | **Target:** Odoo 17.0
 
 ---
 

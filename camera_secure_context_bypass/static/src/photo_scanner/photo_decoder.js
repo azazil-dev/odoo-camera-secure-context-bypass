@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { loadJS } from "@web/core/assets";
-import { buildZXingBarcodeDetector } from "@web/core/barcode/ZXingBarcodeDetector";
+import { buildZXingBarcodeDetector } from "@web/webclient/barcode/ZXingBarcodeDetector";
 import { loadImage } from "../utils/image_utils";
 
 /* global BarcodeDetector */
@@ -194,10 +194,7 @@ export async function decodeBarcodeFromPhoto(imageSource, formats = SUPPORTED_1D
             if (results && results.length > 0) {
                 for (const res of results) {
                     const codeVal = (res.rawValue || "").trim();
-                    let format = res.format || "unknown";
-                    if (Array.isArray(format)) {
-                        format = format[0] || "unknown";
-                    }
+                    const format = res.format || "unknown";
 
                     // Check if 2D was erroneously returned (must be rejected per FR-18)
                     if (["qr_code", "data_matrix", "aztec", "pdf417"].includes(format)) {
