@@ -57,6 +57,37 @@ try {
         }
     }
 
+    // 2b. Patch navigator.permissions.query for non-secure contexts.
+    // In some browsers, 'camera' is not a valid PermissionName enum value when
+    // served over plain HTTP, causing a TypeError. Wrap query to catch and
+    // return a safe default so Odoo core doesn't crash at startup.
+    if (browser && browser.navigator) {
+        const nav = browser.navigator;
+        if (nav.permissions && typeof nav.permissions.query === "function") {
+            const originalQuery = nav.permissions.query.bind(nav.permissions);
+            nav.permissions.query = function (desc) {
+                try {
+                    return originalQuery(desc);
+                } catch (err) {
+                    if (err instanceof TypeError && desc && desc.name) {
+                        console.warn(
+                            "[camera_secure_context_bypass] permissions.query rejected " +
+                            "'" + desc.name + "' — returning default 'denied'."
+                        );
+                        return Promise.resolve({
+                            name: desc.name,
+                            state: "denied",
+                            onchange: null,
+                            addEventListener: () => {},
+                            removeEventListener: () => {},
+                        });
+                    }
+                    throw err;
+                }
+            };
+        }
+    }
+
     if (BarcodeDialog) {
         // 3. Register PhotoBarcodeScanner component into BarcodeDialog
         BarcodeDialog.components = {
@@ -83,5 +114,3 @@ try {
 } catch (err) {
     console.warn("[camera_secure_context_bypass] Failed to patch BarcodeDialog:", err);
 }
-
-
